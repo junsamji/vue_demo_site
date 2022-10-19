@@ -1,4 +1,4 @@
-# demo_site
+# vue_demo_site
 
 ## Project setup
 ```
