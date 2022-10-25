@@ -1,8 +1,9 @@
 <template>
   <div class="black-bg" v-if="modal">
     <div class="white-bg">
-      <h4>상세</h4>
-      <p>상세내용</p>
+      <h4>{{ modal_data.label }}</h4>
+      <img :src="modal_data.image" />
+      <p>{{ modal_data.description }}</p>
       <button @click="modal = false">닫기</button>
     </div>
   </div>
@@ -12,7 +13,7 @@
   </div>
 
   <div v-for="item in products" :key="item.id">
-    <img :src="item.image" class="item-img" @click="modal = true" />
+    <img :src="item.image" class="item-img" @click="clickImg(item)" />
     <h4>{{ item.label }}</h4>
     <p>{{ item.price }}</p>
     <button @click="item.joiner++">♥</button
@@ -29,10 +30,16 @@ export default {
     return {
       menus: ['Home', 'Shop', 'About'],
       modal: false,
-      products: _products
+      products: _products,
+      modal_data: {}
     }
   },
-  methods: {},
+  methods: {
+    clickImg(selectItem) {
+      this.modal_data = selectItem
+      this.modal = true
+    }
+  },
   components: {}
 }
 </script>
@@ -55,11 +62,14 @@ div {
   width: 100%;
   background: white;
   border-radius: 8px;
+  margin-top: 50px;
   padding: 20px;
 }
 
 .item-img {
-  width: 30%;
+  cursor: pointer;
+  padding-top: 15px;
+  width: 20%;
   margin-top: 40px;
 }
 
@@ -75,6 +85,9 @@ div {
   background: darkslateblue;
   padding: 15px;
   border-radius: 10px;
+  width: 100%;
+  position: fixed;
+  top: 0;
 }
 
 .menu a {
